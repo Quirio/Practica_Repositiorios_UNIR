@@ -1,12 +1,15 @@
 <?php
 	$servername = "localhost";
-	$username = "root";
+	$username = "User1";
 	$password = "123";
 
-	$conn = new mysqli($servername,$username,$password);
+	if (!$conn = mysql_connect($servername,$username,$password)) {
+	     echo 'No pudo conectarse a mysql';
+    	 exit;
+	}
 
-	if ($conn->connect_error) {
-	    die("Connection failed: " . $conn->connect_error);
-	} 
-	echo "Connected successfully";
+	if (!mysql_select_db('biblioteca', $conn)) {
+	    echo 'No pudo seleccionar la base de datos';
+	    exit;
+	}
 ?>
