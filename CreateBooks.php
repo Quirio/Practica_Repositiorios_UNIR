@@ -1,0 +1,3 @@
+<?php
+		echo "<h2>Crear Libro Nuevo.</h2><form method=\"post\" action=\"{$_SERVER['PHP_SELF']}\"> <spam>Escriba el id del libro:</spam> <br> <input type=\"text\" name=\"NLibro\"> <br> <spam>Escriba el Nombre del libro:</spam> <br> <input type=\"text\" name=\"NomLibro\"> <br><spam>Número de hojas:</spam> <br> <input type=\"text\" name=\"Nhojas\"> <br> <spam>Número de sección:</spam> <br> <input type=\"text\" name=\"NSeccion\"> <br> <spam>Nombre del autor:</spam> <br> <input type=\"text\" name=\"Nautor\"> <spam>Dni del autor:</spam> <br> <input type=\"text\" name=\"DNIautor\">  <input type=\"submit\" name=\"submit\" value=\"Create\"></form>";
+?>

@@ -22,6 +22,7 @@
 			require "Conecction.php";
 			require "DeleteBooks.php";
 			require "UpdateBooks.php";
+			require "CreateBooks.php";
 
 			if( $_POST ){
 				echo var_dump($_POST);
@@ -36,6 +37,35 @@
 					$nhojas =  $_POST["Nhojas"];
 					$sql = "UPDATE libro SET nPaginas=". $nhojas ." WHERE Identificador =".$id;
 					$response = mysql_query($sql,$conn);
+				}
+
+				else if ($_POST["submit"] == "Create"){
+					$sql2 = 'SELECT COUNT(DNI) FROM `autor` WHERE DNI = "' . $_POST["DNIautor"] . '" AND Nombre = "' . $_POST["Nautor"] .'"';
+					$sql1 = 'INSERT INTO `autor`(`Nombre`, `DNI`) VALUES ($_POST["Nautor"],$_POST["DNIautor"])';
+					$sql3 = 'SELECT COUNT(DNI) FROM `autoria` WHERE `DNI`="' . $_POST["DNIautor"] . '" AND `Identificador`=' .$_POST["NLibro"] ;
+					$sql4 = 'INSERT INTO `autoria`(`DNI`, `Identificador`) VALUES ('. $_POST["DNIautor"] .','. $_POST["NLibro"] .')';
+
+					$response = mysql_num_rows(mysql_query($sql2,$conn));
+					$response2 = mysql_num_rows(mysql_query($sql3,$conn));
+
+					if(!$response){
+						$response = mysql_query($sql1,$conn);
+					}
+
+					if(!$response2){
+						$response2 = mysql_query($sql4,$conn);
+					}
+
+
+					if($response && $response2){
+						$sql = 'INSERT INTO libro(`Identificador`, `nPaginas`, `Titulo`, `NumeroSeccion`) VALUES ( '.$_POST["NLibro"].','.$_POST["Nhojas"].',"'.$_POST[NomLibro].'",'.$_POST["NSeccion"].')';
+						echo $sql;
+						$response = mysql_query($sql,$conn);
+					}
+
+					else{
+						echo "ERROR: PRELIMINARES";
+					}
 				}
 
 				header("Location:index.php");
